@@ -23,24 +23,28 @@ AudioConnection          patchCord8(tdm1, 10, tdm3, 10);
 AudioControlCS42448      cs42448_1;      //xy=330.0056915283203,860.0965957641602
 // GUItool: end automatically generated code
 
-
-
 void setup() {
   Serial.begin(115200);
 
   Serial.println("Initializing the CS42448...");
-
   delay(500);
-
   cs42448_1.enable();
+  delay(1000);
+
+  Serial.print("Attempting to read register 0x05: ");
+  Serial.println(cs42448_1.read(0x05), BIN);
+
+  Serial.println("Attempting to disable the high pass filter");
   cs42448_1.adcHighPassFilterDisable();
 
-  Serial.println("...done");
+  Serial.print("Attempting to read register 0x05 again: ");
+  Serial.println(cs42448_1.read(0x05), BIN);
 
+
+  Serial.println("...done");
 }
 
 void loop() {
-
   float peak = peak1.read();
   float rms = rms1.read();
 
@@ -50,5 +54,4 @@ void loop() {
   Serial.println(rms);
 
   delay(1000);
-
 }
