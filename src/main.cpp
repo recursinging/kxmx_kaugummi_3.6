@@ -6,52 +6,53 @@
 #include <SD.h>
 #include <SerialFlash.h>
 
+
 // GUItool: begin automatically generated code
-AudioInputTDM            tdm1;           //xy=234.01138305664057,668.0113677978514
-AudioAnalyzeRMS          rms1;           //xy=436.0056838989258,493.0965747833252
-AudioAnalyzePeak         peak1;          //xy=438.0056953430176,458.09659337997437
-AudioOutputTDM           tdm3;           //xy=452.00569915771484,666.0965728759766
-AudioOutputTDM           tdm2;           //xy=1408.0113143920898,674.0113296508789
-AudioConnection          patchCord1(tdm1, 0, tdm3, 0);
-AudioConnection          patchCord2(tdm1, 0, peak1, 0);
-AudioConnection          patchCord3(tdm1, 0, rms1, 0);
-AudioConnection          patchCord4(tdm1, 2, tdm3, 2);
-AudioConnection          patchCord5(tdm1, 4, tdm3, 4);
-AudioConnection          patchCord6(tdm1, 6, tdm3, 6);
-AudioConnection          patchCord7(tdm1, 8, tdm3, 8);
-AudioConnection          patchCord8(tdm1, 10, tdm3, 10);
-AudioControlCS42448      cs42448_1;      //xy=330.0056915283203,860.0965957641602
+AudioInputTDM            tdm2;           //xy=411,396
+AudioOutputTDM           tdm1;           //xy=675,395
+AudioConnection          patchCord1(tdm2, 0, tdm1, 0);
+AudioConnection          patchCord2(tdm2, 2, tdm1, 2);
+AudioConnection          patchCord3(tdm2, 4, tdm1, 4);
+AudioConnection          patchCord4(tdm2, 6, tdm1, 6);
+AudioConnection          patchCord5(tdm2, 8, tdm1, 8);
+AudioConnection          patchCord6(tdm2, 10, tdm1, 10);
+AudioConnection          patchCord7(tdm2, 12, tdm1, 12);
+AudioConnection          patchCord8(tdm2, 14, tdm1, 14);
+AudioControlCS42448      cs42448_1;      //xy=520,570
 // GUItool: end automatically generated code
 
-void setup() {
+
+void setup()
+{
+
+  delay(1000);
   Serial.begin(115200);
 
+  AudioMemory(64);
+
   Serial.println("Initializing the CS42448...");
-  delay(500);
+
   cs42448_1.enable();
   delay(1000);
 
   Serial.print("Attempting to read register 0x05: ");
-  Serial.println(cs42448_1.read(0x05), BIN);
-
+  Serial.println("xxx");
+  //Serial.println(cs42448_1.read(0x05), BIN);
+  delay(1000);
   Serial.println("Attempting to disable the high pass filter");
-  cs42448_1.adcHighPassFilterDisable();
-
+  // cs42448_1.adcHighPassFilterDisable();
+  delay(1000);
   Serial.print("Attempting to read register 0x05 again: ");
-  Serial.println(cs42448_1.read(0x05), BIN);
-
+  //Serial.println(cs42448_1.read(0x05), BIN);
+  delay(1000);
+  cs42448_1.volume(1);
+  cs42448_1.inputLevel(15.85);
 
   Serial.println("...done");
 }
 
-void loop() {
-  float peak = peak1.read();
-  float rms = rms1.read();
-
-  Serial.print("Peak: ");
-  Serial.print(peak);
-  Serial.print(" RMS: ");
-  Serial.println(rms);
-
-  delay(1000);
+void loop()
+{
+  // Serial.println("Initializing the CS42448...");
+  // delay(500);
 }
