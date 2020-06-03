@@ -6,20 +6,27 @@
 #include <SD.h>
 #include <SerialFlash.h>
 
-
 // GUItool: begin automatically generated code
+AudioSynthWaveformSine   sine1;          //xy=411,219
+AudioSynthWaveformSine   sine2;          //xy=411,252
 AudioInputTDM            tdm2;           //xy=411,396
+AudioSynthWaveformSine   sine4;          //xy=411,575
+AudioSynthWaveformSine   sine3;          //xy=413,537
 AudioOutputTDM           tdm1;           //xy=675,395
-AudioConnection          patchCord1(tdm2, 0, tdm1, 0);
-AudioConnection          patchCord2(tdm2, 2, tdm1, 2);
+AudioConnection          patchCord1(sine1, 0, tdm1, 0);
+AudioConnection          patchCord2(sine2, 0, tdm1, 2);
 AudioConnection          patchCord3(tdm2, 4, tdm1, 4);
 AudioConnection          patchCord4(tdm2, 6, tdm1, 6);
 AudioConnection          patchCord5(tdm2, 8, tdm1, 8);
 AudioConnection          patchCord6(tdm2, 10, tdm1, 10);
-AudioConnection          patchCord7(tdm2, 12, tdm1, 12);
-AudioConnection          patchCord8(tdm2, 14, tdm1, 14);
-AudioControlCS42448      cs42448_1;      //xy=520,570
+AudioConnection          patchCord7(sine4, 0, tdm1, 14);
+AudioConnection          patchCord8(sine3, 0, tdm1, 12);
+AudioControlCS42448      cs42448_1;      //xy=518,634
 // GUItool: end automatically generated code
+
+
+
+
 
 
 void setup()
@@ -48,11 +55,27 @@ void setup()
   cs42448_1.volume(1);
   cs42448_1.inputLevel(15.85);
 
+  sine1.frequency(1000);
+  sine1.amplitude(1);
+  
+  sine2.frequency(2000);
+  sine2.amplitude(1);
+  
+  sine3.frequency(4000);
+  sine3.amplitude(1);
+  
+  sine4.frequency(4000);
+  sine4.amplitude(1);
+  
+  pinMode(LED_BUILTIN, OUTPUT);
+
   Serial.println("...done");
 }
 
 void loop()
 {
-  // Serial.println("Initializing the CS42448...");
-  // delay(500);
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
 }
